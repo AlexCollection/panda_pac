@@ -8,6 +8,7 @@ tietie.la
 4008123123.com
 qiniudn.com
 qiniu.com
+pinboard.in
 nashangban.com
 chdbits.org
 bbercn.com
