@@ -6,23 +6,25 @@ proxy = 'SOCKS5 localhost:1234;SOCKS localhost:1234;'
 
 
 def read_domains():
-    with open('res/domains.txt') as f:
-        domains = f.read().splitlines()
-    with open('res/custom.txt') as f:
-        custom_domains = f.read().splitlines()
-    with open('res/proxy.txt') as f:
-        black_domains = f.read().splitlines()
-    return custom_domains + domains, black_domains
+    with open('res/whitelist.txt') as f:
+        whitelist = f.read().splitlines()
+    with open('res/whitelist_custom.txt') as f:
+        whitelist_custom = f.read().splitlines()
+    with open('res/blacklist.txt') as f:
+        blacklist = f.read().splitlines()
+    with open('res/blacklist_custom.txt') as f:
+        blacklist_custom = f.read().splitlines()
+    return whitelist + whitelist_custom, blacklist + blacklist_custom
 
 
-def generate_pac(domains, black_domains):
-    with open('res/proxy.pac') as f:
+def generate_pac(white_domains, black_domains):
+    with open('res/proxy_pac.tpl') as f:
         proxy_content = f.read()
 
     proxy_content = proxy_content.replace('__PROXY__', proxy)
 
     domains_dict = {}
-    for domain in domains:
+    for domain in white_domains:
         domains_dict[domain] = 1
     proxy_content = proxy_content.replace(
         '__WHITELIST__',
@@ -41,5 +43,5 @@ def generate_pac(domains, black_domains):
 
 
 if __name__ == '__main__':
-    domains, black_domains = read_domains()
-    print generate_pac(domains, black_domains)
+    white_domains, black_domains = read_domains()
+    print generate_pac(white_domains, black_domains)

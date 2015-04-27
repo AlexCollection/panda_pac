@@ -1,8 +1,0 @@
-newrelic.com
-co.jp
-co.kr
-co.uk
-com.tw
-com.hk
-amazonaws.com
-wp.com
